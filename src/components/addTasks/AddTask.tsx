@@ -22,12 +22,14 @@ const AddTask = (props: any) => {
 	return (
 		<div className="flex">
 			<input
-				className="border border-solid border-3 border-black rounded-lg justify-center items-center"
+				className=" w-1/2 border border-solid border-3 border-black rounded-lg flex justify-center items-center"
 				value={inputValue}
 				onChange={addText}
 				type="text"
 			/>
-			<button onClick={addNewTask}>Add task</button>
+			<button className="bg-sky-500 rounded " onClick={addNewTask}>
+				Add task
+			</button>
 		</div>
 	)
 }
