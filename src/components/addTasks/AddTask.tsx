@@ -20,8 +20,13 @@ const AddTask = (props: any) => {
 	console.log(inputValue)
 
 	return (
-		<div>
-			<input value={inputValue} onChange={addText} type="text" />
+		<div className="flex">
+			<input
+				className="border border-solid border-3 border-black rounded-lg justify-center items-center"
+				value={inputValue}
+				onChange={addText}
+				type="text"
+			/>
 			<button onClick={addNewTask}>Add task</button>
 		</div>
 	)
