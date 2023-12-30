@@ -22,7 +22,7 @@ const AddTask = (props: any) => {
 	return (
 		<div className="flex">
 			<input
-				className=" w-1/2 border border-solid border-3 border-black rounded-lg flex justify-center items-center"
+				className="  border border-solid border-3 border-black rounded-lg flex justify-center items-center"
 				value={inputValue}
 				onChange={addText}
 				type="text"
