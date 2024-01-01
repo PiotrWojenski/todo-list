@@ -7,6 +7,10 @@ const AddTask = () => {
 		setInputValue(e.target.value)
 	}
 
+	const addTask = () => {
+		console.log(inputValue)
+	}
+
 	return (
 		<div className="d-flex justify-center">
 			<div>
@@ -18,7 +22,9 @@ const AddTask = () => {
 				/>
 			</div>
 			<div>
-				<button className=" flex-1 p-2 m-2 border-solid border-2  border-blue-800 rounded-md">Add Task</button>
+				<button className=" flex-1 p-2 m-2 border-solid border-2  border-blue-800 rounded-md" onClick={addTask}>
+					Add Task
+				</button>
 			</div>
 		</div>
 	)
