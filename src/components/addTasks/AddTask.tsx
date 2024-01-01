@@ -19,8 +19,8 @@ const AddTask = (props: any) => {
 	}
 
 	return (
-		<div className="flex flex-row  h-dvh bg-blue-400  ">
-			<div className="flex-2">
+		<div className="flex flex-row justify-center  h-dvh bg-blue-400  ">
+			<div className="flex">
 				<input
 					className="  p-2 m-2 border-2 border-solid border-blue-800 rounded-xl"
 					value={inputValue}
@@ -28,7 +28,7 @@ const AddTask = (props: any) => {
 					type="text"
 				/>
 			</div>
-			<div className="flex-1">
+			<div className="flex">
 				<button className="  p-2 m-2 border-solid border-2  border-blue-800 rounded-md" onClick={addTask}>
 					Add Task
 				</button>
