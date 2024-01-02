@@ -12,6 +12,12 @@ function App() {
 	return (
 		<div className="App">
 			<AddTask addNewTask={taskHandler} />
+			<ul>
+				{/* Wyświetlanie listy zadań */}
+				{tasksList.map((task: any) => (
+					<li key={task.id}>{task.value}</li>
+				))}
+			</ul>
 		</div>
 	)
 }
