@@ -12,7 +12,7 @@ function App() {
 	return (
 		<div className="App">
 			<AddTask addNewTask={taskHandler} />
-			<ul>
+			<ul className="flex flex-col items-center">
 				{/* Wyświetlanie listy zadań */}
 				{tasksList.map((task: any) => (
 					<li key={task.id}>{task.value}</li>
