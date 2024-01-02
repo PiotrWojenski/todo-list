@@ -26,10 +26,11 @@ const AddTask = (props: any) => {
 		<div className="flex flex-row justify-center  h-1/2 bg-blue-400  ">
 			<div className="flex">
 				<input
-					className="  p-3 m-2 border-2 border-solid border-blue-800 rounded-xl"
+					className="  py-3 px-4 m-2 border-2 border-solid border-blue-800 rounded-xl"
 					value={inputValue}
 					onChange={addText}
 					type="text"
+					placeholder="Write your task here..."
 				/>
 			</div>
 			<div className="flex">
