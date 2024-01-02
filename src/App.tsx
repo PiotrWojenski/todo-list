@@ -6,7 +6,7 @@ import { useState } from 'react'
 interface Task {
 	id: string
 	value: string
-	isCpleted?: boolean
+	isCompleted?: boolean
 }
 
 function App() {
