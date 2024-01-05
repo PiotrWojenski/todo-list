@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import TextField from '@mui/material/TextField'
 
 const AddTask = (props: any) => {
 	const [inputValue, setInputValue] = useState('')
@@ -7,37 +8,32 @@ const AddTask = (props: any) => {
 	const addText = (e: any) => {
 		setInputValue(e.target.value)
 	}
-
-	const addTask = () => {
-		if (inputValue.trim() === '') {
-			return
-		}
-		const task = {
+	const addNewTask = () => {
+		const newTask = {
 			id: uuidv4(),
 			value: inputValue,
 			isCompleted: false,
 		}
-		console.log(task)
-		props.addNewTask(task)
-		setInputValue('')
+		console.log(newTask)
+		props.addTask(newTask)
 	}
 
+	console.log(inputValue)
+
 	return (
-		<div className="flex flex-row justify-center  h-1/2 bg-blue-400  ">
-			<div className="flex">
-				<input
-					className="  py-3 px-4 m-2 border-2 border-solid border-blue-800 rounded-xl"
-					value={inputValue}
-					onChange={addText}
-					type="text"
-					placeholder="Write your task here..."
-				/>
-			</div>
-			<div className="flex">
-				<button className="  p-2 m-2 border-solid border-2  border-blue-800 rounded-md" onClick={addTask}>
-					Add Task
-				</button>
-			</div>
+		<div className=" p-3 flex flex-col items-center w-full">
+			<TextField
+				className="w-96"
+				value={inputValue}
+				onChange={addText}
+				id="outlined-basic"
+				label="Write your task"
+				variant="outlined"
+			/>
+
+			<button className=" bg-sky-500 rounded w-36 " onClick={addNewTask}>
+				Add task
+			</button>
 		</div>
 	)
 }
