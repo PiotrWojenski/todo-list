@@ -1,59 +1,47 @@
-// app.tsx
+import React, { useState } from 'react'
 import './App.css'
 import AddTask from './components/addTasks/AddTask'
-import { useState } from 'react'
-
-interface Task {
-	id: string
-	value: string
-	isCompleted?: boolean
-}
+import TasksList from './components/TasksList'
+import TasksInfo from './components/TasksInfo'
+import DarkMode from './components/DarkMode'
 
 function App() {
-	const [tasksList, setTasksList] = useState<Task[]>([])
+	const [tasks, setTasks] = useState<any>([])
+	const [isDarkMode, setIsDarkMode] = useState(false)
 
-	const addTask = (task: Task) => {
-		setTasksList([...tasksList, task])
+	const taskHandler = (task: any) => {
+		setTasks([...tasks, task])
 	}
 
-	const removeTask = (taskId: string) => {
-		const updatedTasks = tasksList.filter(task => task.id !== taskId)
-		setTasksList(updatedTasks)
+	const removeTask = (id: string) => {
+		const updatedTasks = tasks.filter((task: any) => task.id !== id)
+		setTasks(updatedTasks)
 	}
 
-	const completeTask = (taskId: string) => {
-		const updatedTasks = tasksList.map(task => (task.id === taskId ? { ...task, isCompleted: true } : task))
-		setTasksList(updatedTasks)
+	const completeTask = (id: string) => {
+		setTasks(
+			tasks.map((task: any) => {
+				if (task.id === id) {
+					return { ...task, isCompleted: !task.isCompleted }
+				} else {
+					return task
+				}
+			})
+		)
 	}
+	console.log(tasks)
+
+	const toggleDarkMode = () => {
+		setIsDarkMode(prevState => !prevState)
+	}
+	console.log(isDarkMode)
 
 	return (
-		<div className="App">
-			<AddTask addNewTask={addTask} />
-			<ul className="flex flex-col items-center mt-3">
-				{/* Wyświetlanie listy zadań */}
-				{tasksList.map((task: any) => (
-					<div className="flex items-center justify-between w-1/2" key={task.id}>
-						<li
-							className={`inline-block p-1 mt-2 border-solid border-2 border-blue-900 text-left overflow-auto ${
-								task.isCompleted ? 'bg-green-500' : ''
-							}`}>
-							{task.value}
-						</li>
-						<div className="flex space-x-2 ml-2">
-							<button
-								className="border border-solid border-1 border-blue-400 rounded-xl"
-								onClick={() => removeTask(task.id)}>
-								Remove
-							</button>
-							<button
-								className="border border-solid border-1 border-blue-400 rounded-xl"
-								onClick={() => completeTask(task.id)}>
-								Completed
-							</button>
-						</div>
-					</div>
-				))}
-			</ul>
+		<div>
+			<DarkMode toggleDarkMode={toggleDarkMode} darkMode={isDarkMode} />
+			<AddTask addTask={taskHandler} />
+			<TasksList tasksList={tasks} removeTask={removeTask} completeTask={completeTask} />
+			<TasksInfo tasks={tasks} />
 		</div>
 	)
 }
