@@ -1,5 +1,3 @@
-import React from 'react'
-
 const TasksInfo = (props: any) => {
 	const tasksCompleted = props.tasks.filter((task: any) => task.isCompleted === true)
 	return (
