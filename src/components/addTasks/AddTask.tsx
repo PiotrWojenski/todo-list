@@ -23,7 +23,7 @@ const AddTask = (props: any) => {
 	return (
 		<div className=" p-3 flex flex-col items-center w-full">
 			<TextField
-				className="w-96"
+				className="w-98"
 				value={inputValue}
 				onChange={addText}
 				id="outlined-basic"
