@@ -3,7 +3,7 @@ import TaskItem from './TaskItem'
 
 const TasksList = (props: any) => {
 	return (
-		<div>
+		<div className=" flex justify-center items-center w-2/3 border border-solid border-black">
 			<ul>
 				{props.tasksList.map((item: any) => {
 					return (
