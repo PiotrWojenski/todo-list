@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
 const AddTask = (props: any) => {
 	const [inputValue, setInputValue] = useState('')
@@ -31,9 +32,13 @@ const AddTask = (props: any) => {
 				variant="outlined"
 			/>
 
-			<button className=" bg-sky-500 rounded w-36 " onClick={addNewTask}>
+			{/* <button className=" bg-sky-500 rounded w-36 " >
 				Add task
-			</button>
+			</button> */}
+
+			<Button className="" onClick={addNewTask} variant="contained">
+				Contained
+			</Button>
 		</div>
 	)
 }
