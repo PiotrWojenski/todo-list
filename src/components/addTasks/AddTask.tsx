@@ -17,12 +17,13 @@ const AddTask = (props: any) => {
 		}
 		console.log(newTask)
 		props.addTask(newTask)
+		setInputValue('')
 	}
 
 	console.log(inputValue)
 
 	return (
-		<div className=" p-3 flex flex-col items-center w-full">
+		<div className="flex flex-col items-center space-y-4 p-4 border-b-2">
 			<TextField
 				className="w-98"
 				value={inputValue}
@@ -32,12 +33,8 @@ const AddTask = (props: any) => {
 				variant="outlined"
 			/>
 
-			{/* <button className=" bg-sky-500 rounded w-36 " >
-				Add task
-			</button> */}
-
 			<Button className="" onClick={addNewTask} variant="contained">
-				Contained
+				Add new task
 			</Button>
 		</div>
 	)
