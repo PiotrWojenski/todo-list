@@ -1,14 +1,22 @@
 import React from 'react'
 import TaskItem from './TaskItem'
+import useDarkMode from '../hooks/useDarkMode'
 
 const TasksList = (props: any) => {
+	const { isDarkMode } = useDarkMode()
 	return (
-		<div className=" p-4">
+		<div className={isDarkMode ? 'bg-black' : 'bg-white'}>
 			<div className="w-2/3 mx-auto ">
 				<ul className="break-words ">
 					{props.tasksList.map((item: any) => {
 						return (
-							<TaskItem key={item.id} taskInfo={item} removeTask={props.removeTask} completeTask={props.completeTask} />
+							<TaskItem
+								changeEditMode={props.changeEditMode}
+								key={item.id}
+								taskInfo={item}
+								removeTask={props.removeTask}
+								completeTask={props.completeTask}
+							/>
 						)
 					})}
 				</ul>

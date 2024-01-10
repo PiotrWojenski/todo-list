@@ -6,6 +6,7 @@ const TaskItem = (props: any) => {
 			<h2 className={props.taskInfo.isCompleted ? 'line-through' : ''}>{props.taskInfo.value}</h2>
 			<button onClick={() => props.removeTask(props.taskInfo.id)}>Remove</button>
 			<input onClick={() => props.completeTask(props.taskInfo.id)} type="checkbox" />
+			<button onClick={() => props.changeEditMode(props.taskInfo.id)}> Edit</button>
 		</li>
 	)
 }

@@ -1,11 +1,22 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
+import useDarkMode from '../hooks/useDarkMode'
 
-const DarkMode = (props: any) => {
+const DarkMode = () => {
+	const { isDarkMode, toggleDarkMode } = useDarkMode()
+
+	console.log(isDarkMode)
 	return (
 		<div>
-			<DarkModeIcon className="cursor-pointer" onClick={props.toggleDarkMode} />
-			<LightModeIcon className="cursor-pointer" onClick={props.toggleDarkMode} />
+			<DarkModeIcon
+				className={isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}
+				onClick={() => toggleDarkMode('dark')}
+			/>
+
+			<LightModeIcon
+				className={!isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}
+				onClick={() => toggleDarkMode('light')}
+			/>
 		</div>
 	)
 }

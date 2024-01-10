@@ -4,10 +4,17 @@ import AddTask from './components/addTasks/AddTask'
 import TasksList from './components/TasksList'
 import TasksInfo from './components/TasksInfo'
 import DarkMode from './components/DarkMode'
+import useDarkMode from './hooks/useDarkMode'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+// DarkMode, edit
 
 function App() {
 	const [tasks, setTasks] = useState<any>([])
-	const [isDarkMode, setIsDarkMode] = useState(false)
+	const { isDarkMode } = useDarkMode()
+	const [editMode, setEditMode] = useState(false)
+	const [editTask, setEditTask] = useState<any>(null)
 
 	const taskHandler = (task: any) => {
 		setTasks([...tasks, task])
@@ -29,19 +36,33 @@ function App() {
 			})
 		)
 	}
-	console.log(tasks)
 
-	const toggleDarkMode = () => {
-		setIsDarkMode(prevState => !prevState)
+	const changeEditMode = (id: string) => {
+		setEditMode(prev => !prev)
+		const editedTask = tasks.find((task: any) => task.id === id)
+		setEditTask(editedTask)
 	}
-	console.log(isDarkMode)
+
+	// const toggleDarkMode = () => {
+	// 	setIsDarkMode(prevState => !prevState)
+	// }
 
 	return (
-		<div>
-			<DarkMode toggleDarkMode={toggleDarkMode} darkMode={isDarkMode} />
-			<AddTask addTask={taskHandler} />
-			<TasksList tasksList={tasks} removeTask={removeTask} completeTask={completeTask} />
+		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
+			<DarkMode />
+			{editMode ? (
+				<AddTask editedTask={editTask} btnTitle="Edit task" addTask={taskHandler} />
+			) : (
+				<AddTask btnTitle="ADD NEW TASK" addTask={taskHandler} />
+			)}
+			<TasksList
+				changeEditMode={changeEditMode}
+				tasksList={tasks}
+				removeTask={removeTask}
+				completeTask={completeTask}
+			/>
 			<TasksInfo tasks={tasks} />
+			<ToastContainer />
 		</div>
 	)
 }
