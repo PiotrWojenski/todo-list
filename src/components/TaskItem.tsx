@@ -1,3 +1,5 @@
+import React from 'react'
+
 const TaskItem = (props: any) => {
 	return (
 		<li className="border border-solid border-black rounded-md p-1 overflow-hidden">
