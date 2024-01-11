@@ -1,15 +1,10 @@
 import { useState } from 'react'
 
 const useDarkMode = () => {
-	const [isDarkMode, setIsDarkMode] = useState<any>(null)
+	const [isDarkMode, setIsDarkMode] = useState(false)
 
 	const toggleDarkMode = (typeMode: string): void => {
-		setIsDarkMode((prevState: any) => !prevState)
-		if (typeMode === 'dark') {
-			setIsDarkMode(true)
-		} else {
-			setIsDarkMode(false)
-		}
+		setIsDarkMode(typeMode === 'dark')
 	}
 	return { isDarkMode, toggleDarkMode }
 }
