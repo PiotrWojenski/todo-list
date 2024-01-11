@@ -43,10 +43,6 @@ function App() {
 		setEditTask(editedTask)
 	}
 
-	// const toggleDarkMode = () => {
-	// 	setIsDarkMode(prevState => !prevState)
-	// }
-
 	return (
 		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
 			<DarkMode />
