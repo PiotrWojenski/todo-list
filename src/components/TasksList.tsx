@@ -5,7 +5,7 @@ import useDarkMode from '../hooks/useDarkMode'
 const TasksList = (props: any) => {
 	const { isDarkMode } = useDarkMode()
 	return (
-		<div className={isDarkMode ? 'bg-black' : 'bg-white'}>
+		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
 			<div className="w-2/3 mx-auto ">
 				<ul className="break-words ">
 					{props.tasksList.map((item: any) => {
