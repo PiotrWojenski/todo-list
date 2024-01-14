@@ -49,9 +49,9 @@ const AddTask = (props: any) => {
 	}
 	console.log(props.editedTask)
 	return (
-		<div className="flex flex-col items-center space-y-4 p-4 border-b-2">
+		<div className="flex flex-col items-center space-y-4 p-4 border-b-2 ">
 			<TextField
-				className="w-98"
+				className="w-98 text-white"
 				value={inputValue}
 				onChange={addText}
 				id="outlined-basic"
