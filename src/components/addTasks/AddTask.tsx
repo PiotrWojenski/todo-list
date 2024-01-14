@@ -51,12 +51,12 @@ const AddTask = (props: any) => {
 	return (
 		<div className="flex flex-col items-center space-y-4 p-4 border-b-2 ">
 			<TextField
-				className="w-98 text-white"
+				className="w-98 bg-[#fff] rounded-xl overflow-hidden"
 				value={inputValue}
 				onChange={addText}
-				id="outlined-basic"
+				id="filled-basic"
 				label="Write your task"
-				variant="outlined"
+				variant="filled"
 			/>
 			{errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
