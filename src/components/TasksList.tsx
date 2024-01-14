@@ -6,7 +6,7 @@ const TasksList = (props: any) => {
 	const { isDarkMode } = useDarkMode()
 	return (
 		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
-			<div className="w-2/3 mx-auto ">
+			<div className="w-1/2 mx-auto ">
 				<ul className="break-words ">
 					{props.tasksList.map((item: any) => {
 						return (
