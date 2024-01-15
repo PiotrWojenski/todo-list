@@ -7,12 +7,12 @@
 .lightMode {
 	width: 100vw;
 	min-height: 100vh;
-}
-
-body {
 	background: #834d9b;
 	background: -webkit-linear-gradient(to right, #d04ed6, #834d9b);
 	background: linear-gradient(to right, #d04ed6, #834d9b);
+}
+
+body {
 	margin: 0;
 	padding: 0;
 	font-family: 'Roboto', sans-serif;
