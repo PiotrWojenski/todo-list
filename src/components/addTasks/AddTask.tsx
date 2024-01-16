@@ -43,6 +43,13 @@ const AddTask = (props: any) => {
 		setInputValue('')
 		showNotify()
 	}
+	const editExistingTask = () => {
+		const isError = validation()
+		if (isError !== null) return
+		props.editTask(props.editedTask.id, inputValue)
+		setInputValue('')
+		showNotify()
+	}
 
 	const showNotify = () => {
 		toast.success('Added new task')
@@ -60,7 +67,7 @@ const AddTask = (props: any) => {
 			/>
 			{errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
-			<Button className="" onClick={addNewTask} variant="contained">
+			<Button className="" onClick={props.editedTask ? editExistingTask : addNewTask} variant="contained">
 				{props.btnTitle}
 			</Button>
 		</div>
