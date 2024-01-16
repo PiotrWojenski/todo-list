@@ -8,13 +8,11 @@ import useDarkMode from './hooks/useDarkMode'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-// DarkMode, edit
-
 function App() {
 	const [tasks, setTasks] = useState<any>([])
 	const { isDarkMode } = useDarkMode()
 	const [editMode, setEditMode] = useState(false)
-	const [editTask, setEditTask] = useState<any>(null)
+	const [currentEditTask, setCurrentEditTask] = useState<any>(null)
 
 	const taskHandler = (task: any) => {
 		setTasks([...tasks, task])
@@ -36,18 +34,29 @@ function App() {
 			})
 		)
 	}
+	const editTask = (id: string, newValue: string) => {
+		setTasks(
+			tasks.map((task: any) => {
+				if (task.id === id) {
+					return { ...task, value: newValue }
+				} else {
+					return task
+				}
+			})
+		)
+	}
 
 	const changeEditMode = (id: string) => {
 		setEditMode(prev => !prev)
 		const editedTask = tasks.find((task: any) => task.id === id)
-		setEditTask(editedTask)
+		setCurrentEditTask(editedTask)
 	}
 
 	return (
 		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
 			<DarkMode />
 			{editMode ? (
-				<AddTask editedTask={editTask} btnTitle="Edit task" addTask={taskHandler} />
+				<AddTask editedTask={currentEditTask} btnTitle="Edit task" addTask={taskHandler} editTask={editTask} />
 			) : (
 				<AddTask btnTitle="ADD NEW TASK" addTask={taskHandler} />
 			)}

@@ -45,7 +45,7 @@ const AddTask = (props: any) => {
 	}
 
 	const showNotify = () => {
-		toast.success('Zadanie zostało dodane')
+		toast.success('Added new task')
 	}
 	console.log(props.editedTask)
 	return (
