@@ -12,6 +12,9 @@
 	background: linear-gradient(to right, #d04ed6, #834d9b);
 }
 
+.line-through {
+	text-decoration: line-through;
+}
 body {
 	margin: 0;
 	padding: 0;
