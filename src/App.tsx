@@ -53,7 +53,7 @@ function App() {
 	}
 
 	return (
-		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
+		<div className={`${isDarkMode ? 'darkMode' : 'lightMode'} h-screen`}>
 			<DarkMode />
 			{editMode ? (
 				<AddTask editedTask={currentEditTask} btnTitle="Edit task" addTask={taskHandler} editTask={editTask} />
