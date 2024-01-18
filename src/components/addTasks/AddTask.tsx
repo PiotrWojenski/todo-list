@@ -79,7 +79,7 @@ const AddTask = (props: any) => {
 			<Button className="" onClick={props.editedTask ? editExistingTask : addNewTask} variant="contained">
 				{props.btnTitle}
 			</Button>
-			<button onClick={addToFirebase}>add to firebase</button>
+			<button onClick={addToFirebase}>add to Firebase</button>
 		</div>
 	)
 }
