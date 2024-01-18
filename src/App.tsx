@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './App.css'
 import AddTask from './components/addTasks/AddTask'
 import TasksList from './components/TasksList'
 import TasksInfo from './components/TasksInfo'
 import DarkMode from './components/DarkMode'
-import useDarkMode from './hooks/useDarkMode'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { DarkModeContext } from './context/DarkModeContext'
+
+// zapisywanie do todos .. z firebase na strone zeby sie wyswietlalo
 
 function App() {
 	const [tasks, setTasks] = useState<any>([])
-	const { isDarkMode } = useDarkMode()
 	const [editMode, setEditMode] = useState(false)
 	const [currentEditTask, setCurrentEditTask] = useState<any>(null)
+	const { isDarkMode } = useContext(DarkModeContext)
 
 	const taskHandler = (task: any) => {
 		setTasks([...tasks, task])

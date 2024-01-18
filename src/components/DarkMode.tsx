@@ -1,9 +1,12 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import useDarkMode from '../hooks/useDarkMode'
+import { useContext } from 'react'
+import { DarkModeContext } from '../context/DarkModeContext'
+// import useDarkMode from '../hooks/useDarkMode'
 
 const DarkMode = () => {
-	const { isDarkMode, toggleDarkMode } = useDarkMode()
+	// const { isDarkMode, toggleDarkMode } = useDarkMode()
+	const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
 
 	console.log('isDarkMode', isDarkMode)
 	return (

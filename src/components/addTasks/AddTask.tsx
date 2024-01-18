@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import { toast } from 'react-toastify'
+import { ref, set } from 'firebase/database'
+import { db } from '../../Firebase'
 
 const AddTask = (props: any) => {
 	const [errorMessage, setErrorMassage] = useState('')
@@ -14,8 +16,6 @@ const AddTask = (props: any) => {
 			setInputValue(props.editedTask.value)
 		}
 	}, [props.editedTask])
-
-	console.log(props.editedTask)
 
 	const addText = (e: any) => {
 		setInputValue(e.target.value)
@@ -30,6 +30,14 @@ const AddTask = (props: any) => {
 		return null
 	}
 
+	const addToFirebase = () => {
+		const id = uuidv4()
+		set(ref(db, `/${id}`), {
+			id: id,
+			value: inputValue,
+		})
+	}
+
 	const addNewTask = () => {
 		const isError = validation()
 		if (isError !== null) return
@@ -40,6 +48,7 @@ const AddTask = (props: any) => {
 		}
 		console.log(newTask)
 		props.addTask(newTask)
+		addToFirebase()
 		setInputValue('')
 		showNotify()
 	}
@@ -54,7 +63,7 @@ const AddTask = (props: any) => {
 	const showNotify = () => {
 		toast.success('Added new task')
 	}
-	console.log(props.editedTask)
+
 	return (
 		<div className="flex flex-col items-center space-y-4 p-4 border-b-2 ">
 			<TextField
@@ -70,6 +79,7 @@ const AddTask = (props: any) => {
 			<Button className="" onClick={props.editedTask ? editExistingTask : addNewTask} variant="contained">
 				{props.btnTitle}
 			</Button>
+			<button onClick={addToFirebase}>add to firebase</button>
 		</div>
 	)
 }
