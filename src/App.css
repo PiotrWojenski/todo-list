@@ -33,3 +33,15 @@ li:hover {
 	background-color: #1da1f2;
 	color: #fff;
 }
+
+.completedTask {
+	border: solid 1px black;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	overflow: hidden;
+	background: green;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
