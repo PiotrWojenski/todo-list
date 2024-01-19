@@ -7,7 +7,7 @@ import { ref, set } from 'firebase/database'
 import { db } from '../../Firebase'
 
 const AddTask = (props: any) => {
-	const [errorMessage, setErrorMassage] = useState('')
+	const [errorMessage, setErrorMessage] = useState('')
 	const [inputValue, setInputValue] = useState('')
 	const { v4: uuidv4 } = require('uuid')
 
@@ -22,9 +22,9 @@ const AddTask = (props: any) => {
 	}
 
 	const validation = () => {
-		setErrorMassage('')
+		setErrorMessage('')
 		if (inputValue.trim() === '') {
-			setErrorMassage('Pole nie może być puste')
+			setErrorMessage('Pole nie może być puste')
 			return 'Error'
 		}
 		return null
@@ -41,22 +41,37 @@ const AddTask = (props: any) => {
 	const addNewTask = () => {
 		const isError = validation()
 		if (isError !== null) return
+
 		const newTask = {
 			id: uuidv4(),
 			value: inputValue,
 			isCompleted: false,
 		}
-		console.log(newTask)
-		props.addTask(newTask)
+
+		// Add the task to Firebase
 		addToFirebase()
+
+		// Update the local state with the new task
+		props.addTask(newTask)
+
+		// Clear the input value
 		setInputValue('')
+
+		// Show notification
 		showNotify()
 	}
+
 	const editExistingTask = () => {
 		const isError = validation()
 		if (isError !== null) return
+
+		// Edit the task in Firebase
 		props.editTask(props.editedTask.id, inputValue)
+
+		// Clear the input value
 		setInputValue('')
+
+		// Show notification
 		showNotify()
 	}
 
@@ -76,10 +91,16 @@ const AddTask = (props: any) => {
 			/>
 			{errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
-			<Button className="" onClick={props.editedTask ? editExistingTask : addNewTask} variant="contained">
+			{/* Call both addNewTask and addToFirebase on button click */}
+			<Button
+				className=""
+				onClick={() => {
+					addNewTask()
+					addToFirebase()
+				}}
+				variant="contained">
 				{props.btnTitle}
 			</Button>
-			<button onClick={addToFirebase}>add to Firebase</button>
 		</div>
 	)
 }

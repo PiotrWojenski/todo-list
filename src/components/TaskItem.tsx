@@ -31,7 +31,7 @@ const TaskItem = (props: any) => {
 					/>
 				</Tooltip>
 				<Tooltip title="Complete Task" arrow>
-					<input onClick={() => props.completeTask(props.taskInfo.id)} type="checkbox" title="completed" />
+					<input onClick={() => props.completeTask(props.taskInfo.id)} type="checkbox" />
 				</Tooltip>
 				<Tooltip title="Edit Task" arrow>
 					<EditIcon
