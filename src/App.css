@@ -1,14 +1,31 @@
 .darkMode {
-	background-color: black;
+	background-color: #1a1a1a;
+	box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+	color: #ffffff;
 
 	width: 100vw;
+}
+
+.darkMode li {
+	border: 1px solid #2ecc71;
+	background-color: #e8f8ed;
+	color: #000000; /* Dark text color */
+	transition: background-color 0.3s ease;
+}
+.darkMode li:hover {
+	background-color: #1da1f2;
+	color: #fff;
 }
 
 .lightMode {
 	width: 100vw;
 	background: #834d9b;
+	color: #000000;
+	/* background: #834d9b;
 	background: -webkit-linear-gradient(to right, #d04ed6, #834d9b);
-	background: linear-gradient(to right, #d04ed6, #834d9b);
+	background: linear-gradient(to right, #d04ed6, #834d9b); */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	transition: opacity 0.3s ease;
 }
 
 .line-through {
@@ -19,6 +36,9 @@ body {
 	padding: 0;
 	min-height: 100vh;
 	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 li {

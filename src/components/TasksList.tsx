@@ -26,7 +26,6 @@ const TasksList = (props: any) => {
 	}, [])
 
 	useEffect(() => {
-		// Update the component state when props.tasksList changes
 		setTodos(props.tasksList)
 	}, [props.tasksList])
 

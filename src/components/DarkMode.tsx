@@ -5,14 +5,13 @@ import { DarkModeContext } from '../context/DarkModeContext'
 // import useDarkMode from '../hooks/useDarkMode'
 
 const DarkMode = () => {
-	// const { isDarkMode, toggleDarkMode } = useDarkMode()
 	const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
 
 	console.log('isDarkMode', isDarkMode)
 	return (
 		<div>
 			<DarkModeIcon
-				className={isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}
+				className={`darkModeIcon ${isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}`}
 				onClick={() => {
 					toggleDarkMode('dark')
 					console.log('Dark Mode clicked')
@@ -20,7 +19,7 @@ const DarkMode = () => {
 			/>
 
 			<LightModeIcon
-				className={!isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}
+				className={`lightModeIcon ${!isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}`}
 				onClick={() => {
 					toggleDarkMode('light')
 					console.log('Light Mode clicked')
