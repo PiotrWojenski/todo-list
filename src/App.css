@@ -19,11 +19,9 @@
 
 .lightMode {
 	width: 100vw;
-	background: #834d9b;
+	background: #a142ca;
 	color: #000000;
-	/* background: #834d9b;
-	background: -webkit-linear-gradient(to right, #d04ed6, #834d9b);
-	background: linear-gradient(to right, #d04ed6, #834d9b); */
+
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	transition: opacity 0.3s ease;
 }

@@ -7,6 +7,8 @@ const TasksList = (props: any) => {
 	const { isDarkMode } = useDarkMode()
 	const [todos, setTodos] = useState<any>([])
 
+	console.log('isDarkMode', isDarkMode)
+
 	const getTodos = async () => {
 		try {
 			const response = await axios.get('YOUR_FIREBASE_DATABASE_URL/todos.json')
