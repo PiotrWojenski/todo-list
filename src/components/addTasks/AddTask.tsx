@@ -91,7 +91,6 @@ const AddTask = (props: any) => {
 			/>
 			{errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
-			{/* Call both addNewTask and addToFirebase on button click */}
 			<Button
 				className=""
 				onClick={() => {
