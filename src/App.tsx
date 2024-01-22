@@ -45,7 +45,7 @@ function App() {
 				}
 			})
 		)
-		setEditMode(false) // Set editMode to false after editing
+		setEditMode(false)
 	}
 
 	const changeEditMode = (id: string) => {

@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react' // Dodaj `useContext` tutaj
+import React, { useEffect, useState, useContext } from 'react'
 import TaskItem from './TaskItem'
 import axios from 'axios'
 import { DarkModeContext } from '../context/DarkModeContext'
 
 const TasksList = (props: any) => {
 	const { isDarkMode } = useContext(DarkModeContext)
-	// const { isDarkMode } = useDarkMode()
 	const [todos, setTodos] = useState<any>([])
 
 	console.log('isDarkMode', isDarkMode)

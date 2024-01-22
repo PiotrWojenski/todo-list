@@ -1,4 +1,3 @@
-import { set } from 'firebase/database'
 import { createContext, useState, ReactNode } from 'react'
 
 type DefaultStateProps = {

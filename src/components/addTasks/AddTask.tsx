@@ -90,10 +90,8 @@ const AddTask = (props: any) => {
 				className=""
 				onClick={() => {
 					if (props.editedTask) {
-						// If in edit mode, call the editExistingTask function
 						editExistingTask()
 					} else {
-						// If not in edit mode, call the addNewTask function
 						addNewTask()
 					}
 				}}
