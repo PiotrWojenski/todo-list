@@ -1,22 +1,23 @@
-import { createContext, useState } from 'react'
+import { set } from 'firebase/database'
+import { createContext, useState, ReactNode } from 'react'
 
-type defaultStateProp = {
+type DefaultStateProps = {
 	isDarkMode: boolean
 	toggleDarkMode(typeDarkMode: string): void
 }
 
-type darkModeProvider = {
-	children: React.ReactNode
+type DarkModeProviderProps = {
+	children: ReactNode
 }
 
-const deafultState: defaultStateProp = {
+const defaultState: DefaultStateProps = {
 	isDarkMode: false,
 	toggleDarkMode: (typeDarkMode: string) => {},
 }
 
-export const DarkModeContext = createContext(deafultState)
+export const DarkModeContext = createContext(defaultState)
 
-export const DarkModeProvider = ({ children }: darkModeProvider) => {
+export const DarkModeProvider = ({ children }: DarkModeProviderProps) => {
 	const [isDarkMode, setIsDarkMode] = useState(false)
 
 	const toggleDarkMode = (typeDarkMode: string) => {
@@ -25,6 +26,7 @@ export const DarkModeProvider = ({ children }: darkModeProvider) => {
 		} else {
 			setIsDarkMode(false)
 		}
+		setIsDarkMode(typeDarkMode === 'dark')
 	}
 
 	return <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>{children}</DarkModeContext.Provider>

@@ -8,8 +8,6 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { DarkModeContext } from './context/DarkModeContext'
 
-// zapisywanie do todos .. z firebase na strone zeby sie wyswietlalo
-
 function App() {
 	const [tasks, setTasks] = useState<any>([])
 	const [editMode, setEditMode] = useState(false)
@@ -36,6 +34,7 @@ function App() {
 			})
 		)
 	}
+
 	const editTask = (id: string, newValue: string) => {
 		setTasks(
 			tasks.map((task: any) => {
