@@ -1,6 +1,5 @@
 .darkMode {
 	background-color: #1a1a1a;
-	box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 	color: #ffffff;
 
 	width: 100vw;
@@ -22,7 +21,6 @@
 	background: #a142ca;
 	color: #000000;
 
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	transition: opacity 0.3s ease;
 }
 

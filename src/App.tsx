@@ -45,22 +45,29 @@ function App() {
 				}
 			})
 		)
+		setEditMode(false) // Set editMode to false after editing
 	}
 
 	const changeEditMode = (id: string) => {
-		setEditMode(prev => !prev)
+		setEditMode(prevEditMode => !prevEditMode)
 		const editedTask = tasks.find((task: any) => task.id === id)
+		setCurrentEditTask(editedTask)
+	}
+
+	const setEditedTask = (editedTask: any) => {
 		setCurrentEditTask(editedTask)
 	}
 
 	return (
 		<div className={`${isDarkMode ? 'darkMode' : 'lightMode'} h-screen`}>
 			<DarkMode />
-			{editMode ? (
-				<AddTask editedTask={currentEditTask} btnTitle="Edit task" addTask={taskHandler} editTask={editTask} />
-			) : (
-				<AddTask btnTitle="ADD NEW TASK" addTask={taskHandler} />
-			)}
+			<AddTask
+				editedTask={currentEditTask}
+				btnTitle={editMode ? 'Edit task' : 'ADD NEW TASK'}
+				addTask={taskHandler}
+				editTask={editTask}
+				setEditedTask={setEditedTask}
+			/>
 			<TasksList
 				changeEditMode={changeEditMode}
 				tasksList={tasks}

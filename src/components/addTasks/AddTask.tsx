@@ -24,7 +24,7 @@ const AddTask = (props: any) => {
 	const validation = () => {
 		setErrorMessage('')
 		if (inputValue.trim() === '') {
-			setErrorMessage('Pole nie może być puste')
+			setErrorMessage('Task name cannot be empty')
 			return 'Error'
 		}
 		return null
@@ -48,16 +48,12 @@ const AddTask = (props: any) => {
 			isCompleted: false,
 		}
 
-		// Add the task to Firebase
 		addToFirebase()
 
-		// Update the local state with the new task
 		props.addTask(newTask)
 
-		// Clear the input value
 		setInputValue('')
 
-		// Show notification
 		showNotify()
 	}
 
@@ -65,13 +61,12 @@ const AddTask = (props: any) => {
 		const isError = validation()
 		if (isError !== null) return
 
-		// Edit the task in Firebase
 		props.editTask(props.editedTask.id, inputValue)
 
-		// Clear the input value
+		props.setEditedTask(null)
+
 		setInputValue('')
 
-		// Show notification
 		showNotify()
 	}
 
@@ -94,8 +89,13 @@ const AddTask = (props: any) => {
 			<Button
 				className=""
 				onClick={() => {
-					addNewTask()
-					addToFirebase()
+					if (props.editedTask) {
+						// If in edit mode, call the editExistingTask function
+						editExistingTask()
+					} else {
+						// If not in edit mode, call the addNewTask function
+						addNewTask()
+					}
 				}}
 				variant="contained">
 				{props.btnTitle}
