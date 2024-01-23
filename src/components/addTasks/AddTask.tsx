@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import { toast } from 'react-toastify'
 import { ref, set } from 'firebase/database'
+import axios from 'axios' // Import axios for fetching data
 import { db } from '../../Firebase'
 
 const AddTask = (props: any) => {
@@ -30,31 +31,38 @@ const AddTask = (props: any) => {
 		return null
 	}
 
-	const addToFirebase = () => {
-		const id = uuidv4()
-		set(ref(db, `/${id}`), {
-			id: id,
-			value: inputValue,
-			isCompleted: false,
-		})
+	const addToFirebase = async () => {
+		try {
+			const id = uuidv4()
+			// Add the new task to Firebase
+			await set(ref(db, `/${id}`), {
+				id: id,
+				value: inputValue,
+				isCompleted: false,
+			})
+
+			// Fetch the updated list of tasks from Firebase
+			const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
+			if (response.data) {
+				const data = Object.values(response.data)
+				props.setTasks(data) // Assuming you have a setTasks function in props to update the tasks in the parent component
+			} else {
+				props.setTasks([]) // Assuming you have a setTasks function in props to update the tasks in the parent component
+			}
+
+			console.log('Task added to Firebase')
+		} catch (error) {
+			console.error('Error adding task to Firebase:', error)
+		}
 	}
 
-	const addNewTask = () => {
+	const addNewTask = async () => {
 		const isError = validation()
 		if (isError !== null) return
 
-		const newTask = {
-			id: uuidv4(),
-			value: inputValue,
-			isCompleted: false,
-		}
-
-		addToFirebase()
-
-		props.addTask(newTask)
+		await addToFirebase()
 
 		setInputValue('')
-
 		showNotify()
 	}
 

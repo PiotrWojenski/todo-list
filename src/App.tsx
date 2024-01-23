@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './App.css'
 import AddTask from './components/addTasks/AddTask'
 import TasksList from './components/TasksList'
@@ -7,6 +7,8 @@ import DarkMode from './components/DarkMode'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { DarkModeContext } from './context/DarkModeContext'
+import { ref, remove, set } from 'firebase/database'
+import { db } from './Firebase'
 
 function App() {
 	const [tasks, setTasks] = useState<any>([])
@@ -14,13 +16,56 @@ function App() {
 	const [currentEditTask, setCurrentEditTask] = useState<any>(null)
 	const { isDarkMode } = useContext(DarkModeContext)
 
+	useEffect(() => {
+		// Fetch tasks from Firebase on component mount
+		getTasks()
+	}, [])
+
+	const getTasks = async () => {
+		try {
+			const response = await fetchTasksFromFirebase()
+			setTasks(response)
+		} catch (error) {
+			console.error('Error fetching tasks:', error)
+		}
+	}
+
+	const fetchTasksFromFirebase = async () => {
+		try {
+			const response = await fetch('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
+			const data = await response.json()
+			if (data) {
+				return Object.values(data)
+			}
+			return []
+		} catch (error) {
+			throw new Error('Error fetching tasks from Firebase: ' + error)
+		}
+	}
+
 	const taskHandler = (task: any) => {
 		setTasks([...tasks, task])
 	}
 
-	const removeTask = (id: string) => {
-		const updatedTasks = tasks.filter((task: any) => task.id !== id)
-		setTasks(updatedTasks)
+	const removeTask = async (id: string) => {
+		try {
+			await deleteTaskFirebase(id)
+
+			const updatedTasks = tasks.filter((task: any) => task.id !== id)
+			setTasks(updatedTasks)
+		} catch (error) {
+			console.error('Error removing task:', error)
+		}
+	}
+
+	const deleteTaskFirebase = async (id: string) => {
+		try {
+			// Use the remove function from firebase/database to delete the task
+			await remove(ref(db, `/${id}`))
+			console.log('Task removed from Firebase')
+		} catch (error) {
+			console.error('Error removing task from Firebase:', error)
+		}
 	}
 
 	const completeTask = (id: string) => {
@@ -67,12 +112,14 @@ function App() {
 				addTask={taskHandler}
 				editTask={editTask}
 				setEditedTask={setEditedTask}
+				setTasks={setTasks} // Pass the setTasks function to AddTask
 			/>
 			<TasksList
 				changeEditMode={changeEditMode}
 				tasksList={tasks}
 				removeTask={removeTask}
 				completeTask={completeTask}
+				setTasks={setTasks} // Pass the setTasks function to TasksList
 			/>
 			<TasksInfo tasks={tasks} />
 			<ToastContainer />
