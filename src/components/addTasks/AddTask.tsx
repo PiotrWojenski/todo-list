@@ -35,6 +35,7 @@ const AddTask = (props: any) => {
 		set(ref(db, `/${id}`), {
 			id: id,
 			value: inputValue,
+			isCompleted: false,
 		})
 	}
 

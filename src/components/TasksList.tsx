@@ -11,7 +11,7 @@ const TasksList = (props: any) => {
 
 	const getTodos = async () => {
 		try {
-			const response = await axios.get('YOUR_FIREBASE_DATABASE_URL/todos.json')
+			const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
 			if (response.data) {
 				const data = Object.values(response.data)
 				setTodos(data)
@@ -51,5 +51,3 @@ const TasksList = (props: any) => {
 }
 
 export default TasksList
-
-// .get('https://todolist2-dfa46-default-rtdb.firebaseio.com/todos.json')
