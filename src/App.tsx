@@ -17,7 +17,6 @@ function App() {
 	const { isDarkMode } = useContext(DarkModeContext)
 
 	useEffect(() => {
-		// Fetch tasks from Firebase on component mount
 		getTasks()
 	}, [])
 
@@ -60,7 +59,6 @@ function App() {
 
 	const deleteTaskFirebase = async (id: string) => {
 		try {
-			// Use the remove function from firebase/database to delete the task
 			await remove(ref(db, `/${id}`))
 			console.log('Task removed from Firebase')
 		} catch (error) {
@@ -112,14 +110,14 @@ function App() {
 				addTask={taskHandler}
 				editTask={editTask}
 				setEditedTask={setEditedTask}
-				setTasks={setTasks} // Pass the setTasks function to AddTask
+				setTasks={setTasks}
 			/>
 			<TasksList
 				changeEditMode={changeEditMode}
 				tasksList={tasks}
 				removeTask={removeTask}
 				completeTask={completeTask}
-				setTasks={setTasks} // Pass the setTasks function to TasksList
+				setTasks={setTasks}
 			/>
 			<TasksInfo tasks={tasks} />
 			<ToastContainer />

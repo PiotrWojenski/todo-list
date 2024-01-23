@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import { toast } from 'react-toastify'
 import { ref, set } from 'firebase/database'
-import axios from 'axios' // Import axios for fetching data
+import axios from 'axios'
 import { db } from '../../Firebase'
 
 const AddTask = (props: any) => {
@@ -34,20 +34,19 @@ const AddTask = (props: any) => {
 	const addToFirebase = async () => {
 		try {
 			const id = uuidv4()
-			// Add the new task to Firebase
+
 			await set(ref(db, `/${id}`), {
 				id: id,
 				value: inputValue,
 				isCompleted: false,
 			})
 
-			// Fetch the updated list of tasks from Firebase
 			const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
 			if (response.data) {
 				const data = Object.values(response.data)
-				props.setTasks(data) // Assuming you have a setTasks function in props to update the tasks in the parent component
+				props.setTasks(data)
 			} else {
-				props.setTasks([]) // Assuming you have a setTasks function in props to update the tasks in the parent component
+				props.setTasks([])
 			}
 
 			console.log('Task added to Firebase')
