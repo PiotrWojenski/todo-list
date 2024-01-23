@@ -7,13 +7,19 @@ import DarkMode from './components/DarkMode'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { DarkModeContext } from './context/DarkModeContext'
-import { ref, remove, set } from 'firebase/database'
+import { ref, remove, set, update } from 'firebase/database'
 import { db } from './Firebase'
 
+interface Task {
+	id: string
+	value: string
+	isCompleted: boolean
+}
+
 function App() {
-	const [tasks, setTasks] = useState<any>([])
+	const [tasks, setTasks] = useState<Task[]>([])
 	const [editMode, setEditMode] = useState(false)
-	const [currentEditTask, setCurrentEditTask] = useState<any>(null)
+	const [currentEditTask, setCurrentEditTask] = useState<Task | null>(null)
 	const { isDarkMode } = useContext(DarkModeContext)
 
 	useEffect(() => {
@@ -34,7 +40,7 @@ function App() {
 			const response = await fetch('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
 			const data = await response.json()
 			if (data) {
-				return Object.values(data)
+				return Object.values(data) as Task[]
 			}
 			return []
 		} catch (error) {
@@ -42,7 +48,7 @@ function App() {
 		}
 	}
 
-	const taskHandler = (task: any) => {
+	const taskHandler = (task: Task) => {
 		setTasks([...tasks, task])
 	}
 
@@ -50,7 +56,7 @@ function App() {
 		try {
 			await deleteTaskFirebase(id)
 
-			const updatedTasks = tasks.filter((task: any) => task.id !== id)
+			const updatedTasks = tasks.filter(task => task.id !== id)
 			setTasks(updatedTasks)
 		} catch (error) {
 			console.error('Error removing task:', error)
@@ -66,38 +72,49 @@ function App() {
 		}
 	}
 
-	const completeTask = (id: string) => {
-		setTasks(
-			tasks.map((task: any) => {
-				if (task.id === id) {
-					return { ...task, isCompleted: !task.isCompleted }
-				} else {
-					return task
-				}
-			})
-		)
+	const completeTask = async (id: string) => {
+		try {
+			// Update the task locally
+			setTasks(prevTasks =>
+				prevTasks.map(task => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task))
+			)
+
+			// Update the task in Firebase
+			await updateTaskInFirebase(id, { isCompleted: true })
+		} catch (error) {
+			console.error('Error completing task:', error)
+		}
 	}
 
-	const editTask = (id: string, newValue: string) => {
-		setTasks(
-			tasks.map((task: any) => {
-				if (task.id === id) {
-					return { ...task, value: newValue }
-				} else {
-					return task
-				}
-			})
-		)
-		setEditMode(false)
+	const editTask = async (id: string, newValue: string) => {
+		try {
+			// Update the task locally
+			setTasks(prevTasks => prevTasks.map(task => (task.id === id ? { ...task, value: newValue } : task)))
+
+			// Update the task in Firebase
+			await updateTaskInFirebase(id, { value: newValue })
+		} catch (error) {
+			console.error('Error editing task:', error)
+		}
+	}
+
+	const updateTaskInFirebase = async (id: string, updates: Partial<Task>) => {
+		try {
+			await update(ref(db, `/${id}`), updates)
+			console.log('Task updated in Firebase')
+		} catch (error) {
+			console.error('Error updating task in Firebase:', error)
+			throw error
+		}
 	}
 
 	const changeEditMode = (id: string) => {
 		setEditMode(prevEditMode => !prevEditMode)
-		const editedTask = tasks.find((task: any) => task.id === id)
-		setCurrentEditTask(editedTask)
+		const editedTask = tasks.find(task => task.id === id)
+		setCurrentEditTask(editedTask || null)
 	}
 
-	const setEditedTask = (editedTask: any) => {
+	const setEditedTask = (editedTask: Task | null) => {
 		setCurrentEditTask(editedTask)
 	}
 

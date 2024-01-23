@@ -41,7 +41,17 @@ const AddTask = (props: any) => {
 				isCompleted: false,
 			})
 
+			return id
+		} catch (error) {
+			console.error('Error adding task to Firebase:', error)
+			throw error
+		}
+	}
+
+	const fetchAndUpdateTasks = async () => {
+		try {
 			const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
+
 			if (response.data) {
 				const data = Object.values(response.data)
 				props.setTasks(data)
@@ -49,9 +59,9 @@ const AddTask = (props: any) => {
 				props.setTasks([])
 			}
 
-			console.log('Task added to Firebase')
+			console.log('Tasks updated from Firebase')
 		} catch (error) {
-			console.error('Error adding task to Firebase:', error)
+			console.error('Error fetching tasks from Firebase:', error)
 		}
 	}
 
@@ -59,27 +69,36 @@ const AddTask = (props: any) => {
 		const isError = validation()
 		if (isError !== null) return
 
-		await addToFirebase()
-
-		setInputValue('')
-		showNotify()
+		try {
+			const id = await addToFirebase()
+			await fetchAndUpdateTasks()
+			setInputValue('')
+			showNotify()
+		} catch (error) {
+			console.error('Error adding new task:', error)
+			// Handle the error as needed
+		}
 	}
 
-	const editExistingTask = () => {
+	const editExistingTask = async () => {
 		const isError = validation()
 		if (isError !== null) return
 
-		props.editTask(props.editedTask.id, inputValue)
+		try {
+			await props.editTask(props.editedTask.id, inputValue)
+			props.setEditedTask(null)
+			setInputValue('')
 
-		props.setEditedTask(null)
-
-		setInputValue('')
-
-		showNotify()
+			await fetchAndUpdateTasks()
+			showNotify()
+		} catch (error) {
+			console.error('Error editing task:', error)
+			// Handle the error as needed
+		}
 	}
 
 	const showNotify = () => {
-		toast.success('Added new task')
+		toast.success('Task updated')
 	}
 
 	return (
@@ -104,7 +123,7 @@ const AddTask = (props: any) => {
 					}
 				}}
 				variant="contained">
-				{props.btnTitle}
+				{props.editedTask ? 'Edit task' : 'ADD NEW TASK'}
 			</Button>
 		</div>
 	)
