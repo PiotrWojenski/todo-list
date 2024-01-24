@@ -74,12 +74,10 @@ function App() {
 
 	const completeTask = async (id: string) => {
 		try {
-			// Update the task locally
 			setTasks(prevTasks =>
 				prevTasks.map(task => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task))
 			)
 
-			// Update the task in Firebase
 			await updateTaskInFirebase(id, { isCompleted: true })
 		} catch (error) {
 			console.error('Error completing task:', error)
@@ -91,7 +89,6 @@ function App() {
 			// Update the task locally
 			setTasks(prevTasks => prevTasks.map(task => (task.id === id ? { ...task, value: newValue } : task)))
 
-			// Update the task in Firebase
 			await updateTaskInFirebase(id, { value: newValue })
 		} catch (error) {
 			console.error('Error editing task:', error)

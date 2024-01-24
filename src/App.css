@@ -8,7 +8,7 @@
 .darkMode li {
 	border: 1px solid #2ecc71;
 	background-color: #e8f8ed;
-	color: #000000; /* Dark text color */
+	color: #000000;
 	transition: background-color 0.3s ease;
 }
 .darkMode li:hover {

@@ -76,7 +76,6 @@ const AddTask = (props: any) => {
 			showNotify()
 		} catch (error) {
 			console.error('Error adding new task:', error)
-			// Handle the error as needed
 		}
 	}
 
@@ -93,7 +92,6 @@ const AddTask = (props: any) => {
 			showNotify()
 		} catch (error) {
 			console.error('Error editing task:', error)
-			// Handle the error as needed
 		}
 	}
 
