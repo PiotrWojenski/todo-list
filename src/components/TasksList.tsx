@@ -26,9 +26,9 @@ const TasksList = (props: any) => {
 	}, [props.tasksList])
 
 	return (
-		<div className={isDarkMode ? 'darkMode' : 'lightMode'}>
-			<div className="w-1/2 mx-auto ">
-				<ul className="break-words ">
+		<div className={`w-full ${isDarkMode ? 'darkMode' : 'lightMode'}`}>
+			<div className="w-full md:w-1/2 mx-auto">
+				<ul className="break-words">
 					{todos.map((item: any) => (
 						<TaskItem
 							changeEditMode={props.changeEditMode}

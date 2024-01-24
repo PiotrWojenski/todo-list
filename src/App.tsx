@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import './App.css'
 import AddTask from './components/addTasks/AddTask'
 import TasksList from './components/TasksList'
@@ -83,7 +82,7 @@ function App() {
 	}
 
 	return (
-		<div className={`${isDarkMode ? 'darkMode' : 'lightMode'} h-screen`}>
+		<div className={`flex flex-col ${isDarkMode ? 'darkMode' : 'lightMode'} h-screen`}>
 			<DarkMode />
 			<AddTask
 				editedTask={currentEditTask}

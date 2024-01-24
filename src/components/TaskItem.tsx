@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import EditIcon from '@mui/icons-material/Edit'
 import Tooltip from '@mui/material/Tooltip'
-import { ref, remove, update } from 'firebase/database'
-import { db } from '../Firebase'
 
 const TaskItem = (props: any) => {
 	return (

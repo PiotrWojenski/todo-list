@@ -7,16 +7,16 @@ const DarkMode = () => {
 	const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
 
 	return (
-		<div>
+		<div className="flex items-center space-x-2 p-4 md:p-8 lg:p-12">
 			<DarkModeIcon
-				className={`darkModeIcon ${isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}`}
+				className={`darkModeIcon ${isDarkMode ? 'cursor-pointer' : 'opacity-25'}`}
 				onClick={() => {
 					toggleDarkMode(isDarkMode ? 'light' : 'dark')
 				}}
 			/>
 
 			<LightModeIcon
-				className={`lightModeIcon ${!isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}`}
+				className={`lightModeIcon ${!isDarkMode ? 'cursor-pointer' : 'opacity-25'}`}
 				onClick={() => {
 					toggleDarkMode(isDarkMode ? 'light' : 'dark')
 				}}
