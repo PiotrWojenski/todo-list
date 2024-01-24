@@ -7,8 +7,6 @@ const TasksList = (props: any) => {
 	const { isDarkMode } = useContext(DarkModeContext)
 	const [todos, setTodos] = useState<any>([])
 
-	console.log('isDarkMode', isDarkMode)
-
 	const getTodos = async () => {
 		try {
 			const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')

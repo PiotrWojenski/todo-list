@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState, useEffect } from 'react'
 import './App.css'
 import AddTask from './components/addTasks/AddTask'
@@ -7,7 +8,7 @@ import DarkMode from './components/DarkMode'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { DarkModeContext } from './context/DarkModeContext'
-import { ref, remove, set, update } from 'firebase/database'
+import { ref, remove, update } from 'firebase/database'
 import { db } from './Firebase'
 
 interface Task {
@@ -86,7 +87,6 @@ function App() {
 
 	const editTask = async (id: string, newValue: string) => {
 		try {
-			// Update the task locally
 			setTasks(prevTasks => prevTasks.map(task => (task.id === id ? { ...task, value: newValue } : task)))
 
 			await updateTaskInFirebase(id, { value: newValue })
