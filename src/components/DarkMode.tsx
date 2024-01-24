@@ -12,7 +12,6 @@ const DarkMode = () => {
 				className={`darkModeIcon ${isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}`}
 				onClick={() => {
 					toggleDarkMode(isDarkMode ? 'light' : 'dark')
-					console.log('Dark Mode clicked')
 				}}
 			/>
 
@@ -20,7 +19,6 @@ const DarkMode = () => {
 				className={`lightModeIcon ${!isDarkMode ? 'cursor-pointer' : 'cursor-pointer opacity-25'}`}
 				onClick={() => {
 					toggleDarkMode(isDarkMode ? 'light' : 'dark')
-					console.log('Light Mode clicked')
 				}}
 			/>
 		</div>

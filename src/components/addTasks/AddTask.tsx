@@ -60,8 +60,6 @@ const AddTask = (props: any) => {
 			} else {
 				props.setTasks([])
 			}
-
-			console.log('Tasks updated from Firebase')
 		} catch (error) {
 			console.error('Error fetching tasks from Firebase:', error)
 		}
@@ -98,7 +96,7 @@ const AddTask = (props: any) => {
 	}
 
 	const showNotify = () => {
-		toast.success('Task updated')
+		toast.success('Task added')
 	}
 
 	return (
