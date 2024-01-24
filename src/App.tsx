@@ -28,25 +28,17 @@ function App() {
 	}, [])
 
 	const getTasks = async () => {
-		try {
-			const response = await fetchTasksFromFirebase()
-			setTasks(response)
-		} catch (error) {
-			console.error('Error fetching tasks:', error)
-		}
+		const response = await fetchTasksFromFirebase()
+		setTasks(response)
 	}
 
 	const fetchTasksFromFirebase = async () => {
-		try {
-			const response = await fetch('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
-			const data = await response.json()
-			if (data) {
-				return Object.values(data) as Task[]
-			}
-			return []
-		} catch (error) {
-			throw new Error('Error fetching tasks from Firebase: ' + error)
+		const response = await fetch('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
+		const data = await response.json()
+		if (data) {
+			return Object.values(data) as Task[]
 		}
+		return []
 	}
 
 	const taskHandler = (task: Task) => {
@@ -54,55 +46,30 @@ function App() {
 	}
 
 	const removeTask = async (id: string) => {
-		try {
-			await deleteTaskFirebase(id)
+		await deleteTaskFirebase(id)
 
-			const updatedTasks = tasks.filter(task => task.id !== id)
-			setTasks(updatedTasks)
-		} catch (error) {
-			console.error('Error removing task:', error)
-		}
+		const updatedTasks = tasks.filter(task => task.id !== id)
+		setTasks(updatedTasks)
 	}
 
 	const deleteTaskFirebase = async (id: string) => {
-		try {
-			await remove(ref(db, `/${id}`))
-			console.log('Task removed from Firebase')
-		} catch (error) {
-			console.error('Error removing task from Firebase:', error)
-		}
+		await remove(ref(db, `/${id}`))
 	}
 
 	const completeTask = async (id: string) => {
-		try {
-			setTasks(prevTasks =>
-				prevTasks.map(task => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task))
-			)
+		setTasks(prevTasks => prevTasks.map(task => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task)))
 
-			await updateTaskInFirebase(id, { isCompleted: true })
-		} catch (error) {
-			console.error('Error completing task:', error)
-		}
+		await updateTaskInFirebase(id, { isCompleted: true })
 	}
 
 	const editTask = async (id: string, newValue: string) => {
-		try {
-			setTasks(prevTasks => prevTasks.map(task => (task.id === id ? { ...task, value: newValue } : task)))
+		setTasks(prevTasks => prevTasks.map(task => (task.id === id ? { ...task, value: newValue } : task)))
 
-			await updateTaskInFirebase(id, { value: newValue })
-		} catch (error) {
-			console.error('Error editing task:', error)
-		}
+		await updateTaskInFirebase(id, { value: newValue })
 	}
 
 	const updateTaskInFirebase = async (id: string, updates: Partial<Task>) => {
-		try {
-			await update(ref(db, `/${id}`), updates)
-			console.log('Task updated in Firebase')
-		} catch (error) {
-			console.error('Error updating task in Firebase:', error)
-			throw error
-		}
+		await update(ref(db, `/${id}`), updates)
 	}
 
 	const changeEditMode = (id: string) => {

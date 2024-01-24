@@ -8,16 +8,12 @@ const TasksList = (props: any) => {
 	const [todos, setTodos] = useState<any>([])
 
 	const getTodos = async () => {
-		try {
-			const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
-			if (response.data) {
-				const data = Object.values(response.data)
-				setTodos(data)
-			} else {
-				setTodos([])
-			}
-		} catch (error) {
-			console.error('Error fetching data:', error)
+		const response = await axios.get('https://todolist2-dfa46-default-rtdb.firebaseio.com/.json')
+		if (response.data) {
+			const data = Object.values(response.data)
+			setTodos(data)
+		} else {
+			setTodos([])
 		}
 	}
 

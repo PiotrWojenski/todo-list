@@ -7,15 +7,6 @@ import { ref, remove, update } from 'firebase/database'
 import { db } from '../Firebase'
 
 const TaskItem = (props: any) => {
-	const deleteTaskFirebase = (id: string) => {
-		remove(ref(db, `/${id}`))
-	}
-
-	const editTaskFirebase = (id: string, newValue: string) => {
-		update(ref(db, `/${id}`), {
-			value: newValue,
-		})
-	}
 	return (
 		<li
 			className={
